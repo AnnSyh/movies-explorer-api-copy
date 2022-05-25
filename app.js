@@ -14,7 +14,7 @@ const { PORT = 3000 } = process.env; // Слушаем 3000 порт
 // функция обработки ошибок при подключении к серверу mongo
 async function main() {
   try {
-    await mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+    await mongoose.connect('mongodb://localhost:27017/moviesdb');
   } catch (error) {
     console.log(error);
   }

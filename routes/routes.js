@@ -57,9 +57,11 @@ app.use(auth);
 
 // роуты, которым авторизация нужна
 app.use(userRouter);
+console.log('11111111111');
 app.use(moviesRouter);
+console.log('22222222222');
 
 // Обработаем некорректный маршрут и вернём ошибку 404
-app.use('*', auth, (req, res, next) => next(new NotFoundError(`Страницы по адресу ${req.baseUrl} не существует`)));
+app.use('*', auth, (req, res, next) => next(new NotFoundError(`Страницы по адресу ${req.baseUrl} не существует; res= ${res}`)));
 
 module.exports = app;

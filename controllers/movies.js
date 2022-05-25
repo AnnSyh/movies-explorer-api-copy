@@ -17,43 +17,53 @@ const DelMovieError = require('../errors/del-movie-err');
 
 // GET /movies — возвращает все movies
 module.exports.getMovies = (req, res, next) => {
+  console.log('getMovies !!! ');
   Movie.find({})
-    .then((movies) => res.send({ movies }))
+    .then((movies) => {
+      console.log('1111 ', req.body);
+      res.send({ movies });
+    })
     .catch(next);
 };
 
 // POST /movies — создаёт movies
-module.exports.createMovie = (req, res, next) => {
+module.exports.addMovieToDataBase = (req, res, next) => {
+  console.log('!!!! addMovieToDataBase !!! ');
   const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
     movieId,
     nameRU,
     nameEN,
-    director,
-    country,
-    year,
-    duration,
-    description,
-    trailerLink,
-    image,
-    thumbnail,
   } = req.body;
 
+  // console.log('!!!! req !!! ', req);
+  console.log('!!!! req.body !!! ', req.body);
+  // console.log('!!!! req.user._id !!! ', req.user._id);
+
   Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    owner: req.user._id,
     movieId,
     nameRU,
     nameEN,
-    director,
-    country,
-    year,
-    duration,
-    description,
-    trailerLink,
-    image,
-    thumbnail,
-    owner: req.user._id,
   })
     .then((movie) => {
-      res.send(movie);
+      console.log('Movie.create movie = ', movie);
+      res.send({ data: movie });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

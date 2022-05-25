@@ -27,7 +27,7 @@ const BadRequestError = require('../errors/bad-request-err');
 const NotFoundError = require('../errors/not-found-err');
 const ExistEmailError = require('../errors/exist-email-err');
 
-//  login (/POST)  авторизация(залогинивание) пользователя по email и password
+// + login (/POST)  авторизация(залогинивание) пользователя по email и password
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -41,8 +41,9 @@ module.exports.login = (req, res, next) => {
     });
 };
 
-// GET /users/:userId - возвращает пользователя по _id
+// + GET /users/:userId - возвращает пользователя по _id
 module.exports.getUserById = (req, res, next) => {
+  console.log('4444444444444');
   User.findById(req.params.userId)
     .orFail(() => {
       next(new NotFoundError('_id Ошибка. Пользователь не найден, попробуйте еще раз'));
@@ -62,7 +63,7 @@ module.exports.getUserById = (req, res, next) => {
     });
 };
 
-//  GET /users — возвращает всех пользователей
+//  + GET /users — возвращает всех пользователей
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((result) => res.send(result))
@@ -105,6 +106,7 @@ module.exports.createUser = (req, res, next) => {
 
 // GET /users/me  - возвращает информацию о пользователе (email и имя)
 module.exports.getCurrentUser = (req, res, next) => {
+  console.log('req.user._id = ', req.user._id);
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
@@ -117,9 +119,9 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 // PATCH /users/me  - обновляет информацию о пользователе (email и имя)
 module.exports.updateUserProfile = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
 
-  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         return next(new NotFoundError('Пользователь по указанному _id не найден.'));
