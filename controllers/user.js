@@ -69,7 +69,7 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 // ----------------------
-// POST /signup — создаёт пользователя по обязательным полям email и password
+// + POST /signup — создаёт пользователя по обязательным полям email и password
 module.exports.createUser = (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -100,6 +100,8 @@ module.exports.createUser = (req, res, next) => {
       return next(err);
     });
 };
+
+// + GET /users/   - возвращает список пользователей
 
 // GET /users/me  - возвращает информацию о пользователе (email и имя)
 module.exports.getCurrentUser = (req, res, next) => {

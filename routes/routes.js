@@ -1,9 +1,8 @@
 const express = require('express');
-// const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
 const userRouter = require('./user');
-// const cardRouter = require('./card');
+const moviesRouter = require('./movies');
 const NotFoundError = require('../errors/not-found-err');
 const {
   createUser,
@@ -58,7 +57,7 @@ app.use(auth);
 
 // роуты, которым авторизация нужна
 app.use(userRouter);
-// app.use(cardRouter);
+app.use(moviesRouter);
 
 // Обработаем некорректный маршрут и вернём ошибку 404
 app.use('*', auth, (req, res, next) => next(new NotFoundError(`Страницы по адресу ${req.baseUrl} не существует`)));
