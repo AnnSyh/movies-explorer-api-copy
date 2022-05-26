@@ -42,11 +42,11 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: validatorUrl,
   },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'user',
-  },
+  // owner: { //----
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: true,
+  //   ref: 'user',
+  // },
   movieId: {
     type: Number,
     required: true,

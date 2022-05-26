@@ -27,7 +27,7 @@ async function main() {
 // cors
 const cors = (req, res, next) => {
   const { origin } = req.headers;
-  console.log('cors: origin = ', origin);
+  // console.log('cors: origin = ', origin);
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';

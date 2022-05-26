@@ -42,10 +42,12 @@ module.exports.addMovieToDataBase = (req, res, next) => {
     nameRU,
     nameEN,
   } = req.body;
+  console.log(' req.user = ', req.user);
+  // console.log(' req.user._id = ', req.user._id);
+  console.log(' req.body = ', req.body);
 
-  // console.log('!!!! req !!! ', req);
-  console.log('!!!! req.body !!! ', req.body);
-  // console.log('!!!! req.user._id !!! ', req.user._id);
+  // const owner = req.user._id;
+  // console.log(' owner = ', owner);
 
   Movie.create({
     country,
@@ -56,16 +58,17 @@ module.exports.addMovieToDataBase = (req, res, next) => {
     image,
     trailerLink,
     thumbnail,
-    owner: req.user._id,
+    // owner: req.user._id, //----
     movieId,
     nameRU,
     nameEN,
   })
     .then((movie) => {
       console.log('Movie.create movie = ', movie);
-      res.send({ data: movie });
+      res.send(movie);
     })
     .catch((err) => {
+      console.log('catch err = ', err);
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Переданы некорректные данные при создании карточки фильма.'));
       }
